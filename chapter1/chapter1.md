@@ -87,6 +87,36 @@ What can we do then? 🤔
   console.log(arr1);
 ```
 
+### Use cases for `call()`: 
+A good example from [mdn docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call#try_it): 
+```js
+    arr1.push.apply(arr1, arr2);
+  console.log(arr1);
+
+  function Product(name, price) {
+    this.name = name;
+    this.price = price;
+  }
+  function Food(name, price) {
+    Product.call(this, name, price)
+    console.log('this is this');
+    console.log(this) // Food { name: 'cheese', price: 5 }
+    this.category = 'food'
+  }
+  console.log(new Food('cheese', 5).name); // cheese
+```
+Another nice example: 
+```js
+  function greet() {
+  console.log(this.animal, 'typically sleeps between', this.sleepDuration);
+  }
+  const obj = {
+  animal: 'koala',
+  sleepDuration: '12 and 16 hours'
+  }
+  greet.call(obj);
+```
+In the previous example, the value of `this` is bound to the object `obj`, even when `greet` is not a method of `obj`.
 ## A grammatical stop 
 Which sentence is grammatically correct (regarding using neither nor and the correctness of the meaning)?
 Sentence A : 

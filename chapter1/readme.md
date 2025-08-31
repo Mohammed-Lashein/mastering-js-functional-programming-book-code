@@ -20,7 +20,7 @@ I totally agree with this sentence and github is really full of this imperative 
 
 **Lambda calculus p20 notes**
 <!-- to be written... -->
-ƛ
+I have found [a nice handout](https://personal.utdallas.edu/~gupta/courses/apl/lambda.pdf) as an introduction for this topic, but it is too theoretical and I don't like this type of material, so I will just focus on studying from the book instead.
 
 ## Understanding `apply` and `call`
 The syntax is obvious, but why would I need to use any of them?

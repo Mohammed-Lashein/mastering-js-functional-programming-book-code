@@ -1,0 +1,23 @@
+{
+  "name": "mastering-js-fp-book-notes",
+  "version": "1.0.0",
+  "description": "Regarding running the code: If you have `node` installed, you can use `node <path-to-file-relative-to-your-cwd>`",
+  "homepage": "https://github.com/Mohammed-Lashein/mastering-js-functional-programming-book-code#readme",
+  "bugs": {
+    "url": "https://github.com/Mohammed-Lashein/mastering-js-functional-programming-book-code/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohammed-Lashein/mastering-js-functional-programming-book-code.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.1.1"
+  }
+}

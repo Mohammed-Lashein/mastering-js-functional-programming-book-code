@@ -18,7 +18,7 @@ const nc = newCounter();
 // console.log(nc()); // 3
 
 // Questions code
-
+// Question 1.1
 const makeSaluteClass = term => class {
   constructor(x) {
     this.x = x;
@@ -32,7 +32,29 @@ const makeSaluteClass = term => class {
 const Spanish = makeSaluteClass('hola')
 new Spanish('alpha').salute('beta')
 
+/* 
+  The writer mentioned that the above code has "some purposefully weird code in it".
+  I couldn't understand his intent, so I asked chat and he pointed out to me the weirdness.
 
+  [1] The class is created inline instead of globally like we are used to in most OOP languages like : 
+  class MyClass {}
+  [2] The function makeSaluteClass DOESN'T create an instace (it is not an objects factory function) but 
+  instead it is creating a new class definition dynamically!
+
+  So code like : 
+  const Spanish = makeSaluteClass('hola') --> Spanish is our dynamically generated constructor
+  new Spanish('alpha').salute('beta') --> Now we use the dynamically created Spanish class
+
+  =======
+  What is the meaning of "Classes are first-class objects"?
+  => Classes in js can be : 
+  [1] Returned from functions (as we did in makeSaluteClass)
+  [2] Assigned to variables --> const Spanish = ...
+  [3] Passed around like data
+
+*/
+
+// Question 1.3
 function upwardFactorial(n, current = 1) {
   if (current === n) {
     return n;

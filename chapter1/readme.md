@@ -7,11 +7,12 @@
 
 An amazing quote from the book: 
 > The vast majority of today's web code is written in imperative, non-functional ways, and most coders are used to that way of working
+
 I totally agree with this sentence and github is really full of this imperative code.
 
 ## Functions are first class objects
 - They are aka "first class citizens"
-- What does that mean?
+- What does that mean?  
 => It means that we can do everything with functions that we can do with other objects. 
 
 - Recursion can be used as an alternative for `while` and `for` loops.
@@ -27,13 +28,13 @@ The syntax is obvious, but why would I need to use any of them?
 ### Use cases for `apply()`: 
 Gemini mentioned 2 nice use cases with examples: 
 
-1. Dynamic `this` context
+1. Dynamic `this` context  
 You need to explicitly set the `this` value for a fn call, allowing you to borrow methods from one object and apply them to another.
 
 The example: The example from mdn docs below (which has `arr1` and `arr2`);
 
 
-2. Arguments are provided as an array
+2. Arguments are provided as an array  
 You have the arguments to be passed to a function as an array and you neither want to destructure the array elements individually nor use the spread operator. 
 
 Here is a nice example from [mdn docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply): 
@@ -70,7 +71,8 @@ WRONG!
 
   Update: After reading [in the docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push#return_value) I found this: 
   
-> The new length property of the object upon which the method was called.
+> Return value of `push()`  
+ The new length property of the object upon which the method was called.
 
 Oh this is not what we wanted!
 Now we have the `arr2` as a nested array in `arr1`.
@@ -86,11 +88,11 @@ What can we do then? 🤔
   arr1.push.apply(arr1, arr2);
   console.log(arr1);
 ```
-
+_______
 ### Use cases for `call()`: 
 A good example from [mdn docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call#try_it): 
 ```js
-    arr1.push.apply(arr1, arr2);
+  arr1.push.apply(arr1, arr2);
   console.log(arr1);
 
   function Product(name, price) {
@@ -108,17 +110,17 @@ A good example from [mdn docs](https://developer.mozilla.org/en-US/docs/Web/Java
 Another nice example: 
 ```js
   function greet() {
-  console.log(this.animal, 'typically sleeps between', this.sleepDuration);
+    console.log(this.animal, 'typically sleeps between', this.sleepDuration);
   }
   const obj = {
-  animal: 'koala',
-  sleepDuration: '12 and 16 hours'
+    animal: 'koala',
+    sleepDuration: '12 and 16 hours'
   }
   greet.call(obj);
 ```
 In the previous example, the value of `this` is bound to the object `obj`, even when `greet` is not a method of `obj`.
 ## A grammatical stop 
-Which sentence is grammatically correct (regarding using neither nor and the correctness of the meaning)?
+Which sentence is grammatically correct (regarding using neither nor and the correctness of the meaning)?  
 Sentence A : 
 >"You have the arguments to be passed to a function as an array and you neither want to destructure the array elements individually nor use the spread operator" ✅  
 Sentence B :

@@ -70,3 +70,31 @@ function billTheUser() {
   window.alert("billing the user")
 }
 ```
+### A side note
+Given this code snippet: 
+```js
+function pudding() {
+  pudding = function() {console.log('chocolate')}
+  console.log('pudding');
+}
+pudding()
+pudding()
+
+window.pudding()
+console.log(window)
+
+(function billTheUser(isClicked) {
+  if(!isClicked) {
+    isClicked = true
+    window.alert('billing the user')
+  }
+})(false);
+```
+I got this error in the console which prevented the `window.alert('billing the user')` from executing:  
+`Uncaught TypeError: console.log(...) is not a function`.  
+
+I asked chat but the answer was ambiguous and wrong, it didn't solve my problem. I searched stackoverflow and [found an exact match to my problem](https://stackoverflow.com/questions/31013221/typeerror-console-log-is-not-a-function).  
+The problem was that the `console.log()` that preceeded the `billTheUser` IIFE didn't have a `;` at its end, that caused the IIFE to get passed as a function call to the returned value of `console.log()` which is `undefined`.
+
+From the answer: 
+> `console.log(...)` refers to the return value of the function

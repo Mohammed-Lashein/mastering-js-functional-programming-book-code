@@ -66,3 +66,32 @@ upwardFactorial(5, 1) => returns upwardFactorial(5, 2) * 1
 */
 
 // return (((5 * 4) * 3 ) * 2) * 1
+
+/* 
+  Chat also suggested a nice diagram, other than the one I created above, which nicely helps visualizing 
+  the call stack and execution flow
+
+  CALL STACK (top = most recent)          EXPRESSION BEING BUILT
+---------------------------------------------------------------
+upwardFactorial(5, 1)                   1 * upwardFactorial(5, 2)
+---------------------------------------------------------------
+upwardFactorial(5, 2)                   1 * (2 * upwardFactorial(5, 3))
+upwardFactorial(5, 1)
+---------------------------------------------------------------
+upwardFactorial(5, 3)                   1 * (2 * (3 * upwardFactorial(5, 4)))
+upwardFactorial(5, 2)
+upwardFactorial(5, 1)
+---------------------------------------------------------------
+upwardFactorial(5, 4)                   1 * (2 * (3 * (4 * upwardFactorial(5, 5))))
+upwardFactorial(5, 3)
+upwardFactorial(5, 2)
+upwardFactorial(5, 1)
+---------------------------------------------------------------
+upwardFactorial(5, 5)                   1 * (2 * (3 * (4 * 5)))
+upwardFactorial(5, 4)
+upwardFactorial(5, 3)
+upwardFactorial(5, 2)
+upwardFactorial(5, 1)
+---------------------------------------------------------------
+(Base case returns 5)
+*/

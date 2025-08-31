@@ -70,6 +70,19 @@ function billTheUser() {
   window.alert("billing the user")
 }
 ```
+6. Use a local flag
+That's one of the best solutions to consider
+```js
+  let billTheUser = (clicked => {
+    return (some, sales, data) => {
+      if(!isClicked) {
+        clicked = true;
+        window.alert("billing the user")
+      }
+    }
+  })(false)
+```
+____
 ### A side note
 Given this code snippet: 
 ```js

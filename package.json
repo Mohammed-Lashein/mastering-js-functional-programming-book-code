@@ -19,5 +19,11 @@
   },
   "devDependencies": {
     "jest": "^30.1.1"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^30.1.1"
   }
 }

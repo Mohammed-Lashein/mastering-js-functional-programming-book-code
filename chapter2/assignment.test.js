@@ -35,6 +35,17 @@ function alternator(fn1, fn2) {
   }
 }
 
+// 2.3 Everything has a limit!
+function thisManyTimes(fn, n) {
+  let callTimes = 0;
+  return (...args) => {
+    while(callTimes < n) {
+      fn(...args)
+      callTimes++
+    }
+  }
+}
+
 // assignment tests
 test('assignment 2.1', () => {
 	const fn = jest.fn()
@@ -54,4 +65,15 @@ test('alternator', () => {
   expect(alternate()).toBe('B')
   expect(alternate()).toBe('A')
   expect(alternate()).toBe('B')
+})
+test("thisManyTimes", () => {
+  const myfn = jest.fn()
+  const hasALimit = jest.fn(thisManyTimes(myfn, 2))
+
+  hasALimit()
+  hasALimit()
+  hasALimit()
+  hasALimit()
+  
+  expect(myfn).toHaveBeenCalledTimes(2)
 })

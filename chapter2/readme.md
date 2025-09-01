@@ -146,3 +146,32 @@ test.only("mocking fetch", async () => {
 What if we spied on `fetch` instead of mocking it?  
 If you spy on it, the network request will still me made unless you actually provide a mock implementation.
 Whereas on mocking `fetch`, it is replaced with `jest.fn()` so there is no chance of hitting the network.
+### Spying on `fetch`
+Given the following code: 
+```js
+test.only("spying on fetch", async () => {
+  const fetchSpy = jest
+  .spyOn(window, 'fetch')
+  .mockResolvedValue({
+    json: jest.fn().mockResolvedValue({name: 'bar'})
+  })
+
+  const user = await fetchUser(2)
+  expect(user).toEqual({name: 'bar'})
+  expect(fetchSpy).toHaveBeenCalledWith('/users/2')
+
+  fetchSpy.mockRestore()
+})
+```
+On running the test, I got this error: 
+> Property `fetch` does not exist in the provided object.
+
+After asking chat, he explained: 
+- If we are in a node environment, we need to use `global` instead of `window`.
+- If we are in a `jest-environment-jsdom` we may need to define `window.fetch` in order to be able to stub it
+  
+His answer introduced another question to my mind: Why doesn't `jest-environment-jsdom` provide `fetch` by default? Isn't is supposed to be available since it is a browser API ?  
+Chat told me that `jsdom` says that in their docs: 
+> jsdom does not attempt to implement web platform APIs that aren’t related to the DOM.
+
+I searched for that sentence on github, but couldn't find it. But it seems that yes jsdom is just focusing on providing DOM APIs not all browser APIs

@@ -18,8 +18,14 @@ test("onceAndAfter is working as expected", () => {
   const onceAndAfterFn = jest.fn(onceAndAfter(fnOnce, fnAfter))
 
   onceAndAfterFn()
-  onceAndAfterFn()
-  onceAndAfterFn()
-  expect(fnOnce).toHaveBeenCalledTimes(1)
-  expect(fnAfter).toHaveBeenCalledTimes(2)
+	expect(fnOnce).toHaveBeenCalledTimes(1)
+	expect(fnAfter).toHaveBeenCalledTimes(0)
+
+	onceAndAfterFn()
+	expect(fnOnce).toHaveBeenCalledTimes(1)
+	expect(fnAfter).toHaveBeenCalledTimes(1)
+
+	onceAndAfterFn()
+	expect(fnOnce).toHaveBeenCalledTimes(1)
+	expect(fnAfter).toHaveBeenCalledTimes(2)
 })

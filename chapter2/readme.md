@@ -111,3 +111,38 @@ The problem was that the `console.log()` that preceeded the `billTheUser` IIFE d
 
 From the answer: 
 > `console.log(...)` refers to the return value of the function
+_____
+### Using mocks
+Given this test: 
+```js
+const fetchUser = async (id) => {
+  const res = await fetch('/users/' + id); // Returns a Promise that resolves to a `Response` object
+  const user = await res.json() // Returns another promise that resolves to the parsed json
+  return user;
+}
+test.only("mocking fetch", async () => {
+  // Arrange
+  window.fetch = jest.fn()
+  /* 
+    Note that mockFn.mockResolveValue(value) is a shorthand for : 
+      jest.fn().mockImplementation((value) => Promise.resolve(value))
+
+    That's why although we are mocking fetch, we still need to await the result as the returned result
+    is a Promise. 
+
+    Another note, if you inspect fetchUser() from the source code, you will find that we await res.json().
+    That's why we return an obj that has a property json from the mocked fetch
+  */
+  window.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue({name: 'kawaki'})
+  })
+  // Act
+  const user = await fetchUser(1)
+  // Assert
+  expect(user).toEqual({name: 'kawaki'})
+  expect(window.fetch).toHaveBeenCalledWith('/users/1')
+})
+```
+What if we spied on `fetch` instead of mocking it?  
+If you spy on it, the network request will still me made unless you actually provide a mock implementation.
+Whereas on mocking `fetch`, it is replaced with `jest.fn()` so there is no chance of hitting the network.

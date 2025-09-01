@@ -36,3 +36,11 @@ export function onceAndAfter(f, g) {
 		// }
 	}
 }
+
+const squeak = (x) => console.log(x, 'squeak!')
+const creak = (x) => console.log(x, 'creak!')
+const makeSound = onceAndAfter(squeak, creak)
+
+makeSound('door')
+makeSound('door')
+makeSound('door')

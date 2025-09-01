@@ -175,3 +175,24 @@ Chat told me that `jsdom` says that in their docs:
 > jsdom does not attempt to implement web platform APIs that aren’t related to the DOM.
 
 I searched for that sentence on github, but couldn't find it. But it seems that yes jsdom is just focusing on providing DOM APIs not all browser APIs
+_____
+### Chapter 2 assignments notes
+**2.2 Alternator function**
+At first, I implemented the `alternator` function like so:
+```js
+function alternator(fn1, fn2) {
+  let alternate = true
+    if(alternate) {
+    return fn1
+  } else {
+    return fn2
+  }
+    alternate = !alternate
+}
+```
+But the tests failed.  
+The problem was that since `alternate` flag was a local variable, it was re-initialized every time the function ran.  
+What is the solution then? 
+We should depend on closures, and that is what I did in the solution present in the assignment file.
+
+This chapter really showed me the power of closures, where we can have encapsulated flags that we can use without polluting the global scope.

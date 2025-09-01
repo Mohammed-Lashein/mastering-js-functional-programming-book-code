@@ -21,6 +21,20 @@ o()
 o()
 o()
 
+// 2.2 Alternating functions
+function alternator(fn1, fn2) {
+  let alternate = true
+  return () => {
+    if(alternate) {
+    alternate = !alternate
+    return fn1()
+  } else {
+    alternate = !alternate
+    return fn2()
+  }
+  }
+}
+
 // assignment tests
 test('assignment 2.1', () => {
 	const fn = jest.fn()
@@ -30,4 +44,14 @@ test('assignment 2.1', () => {
 	willBeExecutedOnce()
 	willBeExecutedOnce()
 	expect(fn).toHaveBeenCalledTimes(1)
+})
+test('alternator', () => {
+  const sayA = () => 'A'
+  const sayB = () => 'B'
+  const alternate = alternator(sayA, sayB)
+
+  expect(alternate()).toBe('A')
+  expect(alternate()).toBe('B')
+  expect(alternate()).toBe('A')
+  expect(alternate()).toBe('B')
 })

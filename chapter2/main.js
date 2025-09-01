@@ -37,6 +37,14 @@ export function onceAndAfter(f, g) {
 	}
 }
 
+// here is how you can provide arguments for onceAndAfter
+function b(b) {console.log(b)}
+let myfn = onceAndAfter(b, (...args) => {console.log('I am in g fn', ...args)})
+myfn('2')
+myfn('12')
+myfn()
+
+
 const squeak = (x) => console.log(x, 'squeak!')
 const creak = (x) => console.log(x, 'creak!')
 const makeSound = onceAndAfter(squeak, creak)

@@ -55,3 +55,22 @@ for(i = 0; i < 10; i++) {
 console.log(foo.count) // 4 Correct!
 ```
 By using `foo.call(foo, i)`, we are forcing the value of `this` to refer to `foo()`.
+
+#### Misconception 2: Its scope
+The next misconception is that `this` refers to the function's scope. In one end this is true, while in another end this is quite misguided. 
+
+```js
+function foo() {
+  var a = 2
+  this.bar()
+  // bar() // also works
+}
+function bar() {
+  console.log(this.a)
+}
+foo() // Reference Error: a is not defined
+// although in the browser, I just got undefined, not a reference error
+```
+Either calling `this.bar()` or `bar()` will work, since it is a global function, it will be available as a method of the `window` object.
+
+In the previous snippet, we are trying to make a bridge between lexical scope and using `this`. It is important to note that this bridge **doesn't exist**.

@@ -39,3 +39,7 @@ OR
 Examples: 
 - She *also* has a car (has here is a main verb)
 - The subject has *also* been discussed (has is part of a tense, not the main verb of the sentence)
+
+4. What recieved the `identity` property then?
+- The `showItself1` function (which can be written as a class) ❌
+- The `showItself1` newly created instance ✅

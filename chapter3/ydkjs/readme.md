@@ -74,3 +74,54 @@ foo() // Reference Error: a is not defined
 Either calling `this.bar()` or `bar()` will work, since it is a global function, it will be available as a method of the `window` object.
 
 In the previous snippet, we are trying to make a bridge between lexical scope and using `this`. It is important to note that this bridge **doesn't exist**.
+
+#### Finally, what's this?
+In a nutshell: 
+> It is not an author-time binding, but instead a runtime binding
+
+## Chapter 2: this all makes sense now!
+A better way to visualize the callstack as explained by [elzero web school](https://elzero.org/javascript-2021-call-stack-and-web-api/)
+```js
+// ch2
+function baz() {
+  console.log('baz')
+  bar()
+}
+function bar() {
+  console.log('bar')
+  foo()
+}
+function foo() {
+  console.log('foo')
+}
+debugger;
+baz()
+/* 
+Call stack
+===========
+foo()
+===========
+bar()
+===========
+baz()
+===========
+*/
+```
+
+How does the call-site where `this` will point during the execution of a function? 🤔  
+=> There are **4** rules to follow 🙌
+
+### Rule 1: Default Binding
+`this` refers to the `window` object on calling the function from the global scope: 
+```js
+function foo() {
+  console.log(this.a)
+}
+var a  = 2
+foo() // 2
+```
+Why does the above snippet work?  
+=> Because now the variable `a` is present as a property on the window object (Note that if we used `let` instead of `var`, this won't happen and we will get `undefined`).
+
+To quote from the book: 
+> The first thing to note, if you were not already aware, is that variables declared in the global scope, as `var a = 2` is, are synonymous with global-object properties of the same name. They’re not copies of each other, they *are* each other. Think of it as two sides of the same coin.

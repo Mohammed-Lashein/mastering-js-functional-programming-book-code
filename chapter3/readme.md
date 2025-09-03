@@ -97,3 +97,10 @@ const doSomeMethod = someObject.someMethod.bind(someObject);
 // Now we can use our method and it will work correctly
 fetch("some/remote/url").then(doSomeMethod);
 ```
+#### `Array.sort()`
+I wonder why in the compareFunction passed to `sort()` we need to use subtraction instead of addition. I tried the addition operation and got wrong results.
+
+I have found [this comment](https://stackoverflow.com/questions/32704651/difference-between-greater-than-and-subtract-in-javascripts-sort#comment53252912_32704709) that explains the reason for that.
+
+By the way, how did I get the link to the comment from stackoverflow?  
+Click on the date the commented was added, then copy the url (it will point to that specific comment)

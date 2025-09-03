@@ -161,3 +161,37 @@ Now notice this contrast:
 obj1.obj2.foo.call(obj1) // 2
 ```
 Since we explicitly bound `this` to `obj1`, `foo()` will read the property `a` from `obj1`.
+
+#### Implicitly lost
+In this code snippet: 
+```js
+function foo() {
+  console.log(this.a)
+}
+var obj = {
+  a: 2,
+  foo: foo
+}
+var bar = obj.foo
+var a = 'oops, global'
+bar() // oops, global 
+```
+`bar` is just another reference to `foo`, and since we are calling `bar` in the global context, `this` will get its value from the `default binding`.
+
+It gets tricky when we try to pass `foo()` as a callback: 
+```js
+function doFoo(fn) {
+  fn()
+}
+function foo() {
+  console.log(this.a)
+}
+var obj = {
+  a: 2,
+  foo: foo
+}
+var a = 'oops, global'
+
+doFoo(obj.foo) // oops, global
+```
+Although that `foo` is now called as a cb in `doFoo`, but since `doFoo` is called in the global context, `this` will get its value through the **default binding**

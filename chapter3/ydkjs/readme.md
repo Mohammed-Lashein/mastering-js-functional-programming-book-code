@@ -227,3 +227,43 @@ var bar = bind(foo, obj)
 var b = bar(3) // 2 3
 console.log(b) // 5
 ```
+### Rule 4: new binding
+In js, `constructor`s don't work the same they do in other OOP languages. Constructors are just normal functions that act as *construction calls* of functions
+
+To quote from the book: 
+When a function is invoked with `new` in front of it, the following things are done automatically: 
+1. A brand new object is created out of thin air
+2. The newly created object is prototype linked (more on that in chapter 5)
+3. The newly constructed object is set as the `this` binding for that function call
+4. Unless the function returns its own alternate object (using a `return` stmt), the `new`-invoked function call will *automatically* return the newly constructed object.
+
+The above 4 points are present in [mdn docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new#description) but the writer paraphrased them in a nice way.
+
+Let's see the above principles in action: 
+```js
+function foo(a) {
+  this.a = a
+}
+var bar = new foo(2)
+console.log(bar) // foo {a: 2}
+console.log(bar.a) // 2
+console.log(typeof bar) // object
+```
+Now notice this variation (which explains point 4 very well): 
+```js
+function foo(a) {
+  this.a = a
+  return {
+    banana: 'pudding'
+  }
+}
+var bar = new foo(2)
+console.log(bar) // {banana: 'pudding'} . Notice that the property 'a' doesn't exist!
+console.log(bar.a) // undefined
+console.log(typeof bar) // object
+```
+
+
+given this situation, i have 5 local commits on the main, then I branched for anotherbranch to also have these commits. Now I am pushing that new branch, while I want the local main commits to not be present in main in order for my local main and origin/main to have the same code. 
+
+What are the steps of achieving so?

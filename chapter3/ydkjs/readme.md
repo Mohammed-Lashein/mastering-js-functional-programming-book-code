@@ -125,3 +125,39 @@ Why does the above snippet work?
 
 To quote from the book: 
 > The first thing to note, if you were not already aware, is that variables declared in the global scope, as `var a = 2` is, are synonymous with global-object properties of the same name. They’re not copies of each other, they *are* each other. Think of it as two sides of the same coin.
+
+### Grammatical sidenote
+Is the expression "in one end... on the other end" correct?  
+The expression is actually
+> On the one hand, ... on the other hand  
+
+Example: 
+> On the one hand, this option is cheaper. On the other hand, it takes more time.
+
+### Rule 2: Implicit Binding
+When we call our `foo` function as a method on an object, then `this` in `foo()` is bound to that object.
+Given this snippet: 
+```js
+function foo() {
+  console.log(this.a)
+}
+var obj2 = {
+  a: 42,
+  foo: foo
+}
+var obj1 = {
+  a: 2,
+  obj2: obj2
+}
+obj1.obj2.foo() // 42
+```
+In the above snippet, `foo` got the value of the property `a` as follows: 
+```js
+obj1.obj2 // -> refers to obj2
+obj2.foo() // --> foo() will read the 'a' property of obj2
+```
+Now notice this contrast: 
+```js
+obj1.obj2.foo.call(obj1) // 2
+```
+Since we explicitly bound `this` to `obj1`, `foo()` will read the property `a` from `obj1`.

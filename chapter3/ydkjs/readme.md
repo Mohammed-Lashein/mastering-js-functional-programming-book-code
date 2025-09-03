@@ -195,3 +195,35 @@ var a = 'oops, global'
 doFoo(obj.foo) // oops, global
 ```
 Although that `foo` is now called as a cb in `doFoo`, but since `doFoo` is called in the global context, `this` will get its value through the **default binding**
+
+### Rule 3: Explicit binding
+Using `call` and `apply`
+
+#### Hard binding (an explicit binding variant)
+```js
+function foo() {
+  console.log(this.a)
+}
+var obj = {
+  a: 2
+}
+function bar() {
+  foo.call(obj)
+}
+bar() // 2
+doFoo(bar) // 2
+```
+Using a `bind` helper function: 
+```js
+function bind(fn, obj) {
+  // Note that I used spread syntax instead of the deprecated arguments object
+  return function(...args) {
+    return fn.apply(obj, args)
+  }
+}
+bind()
+
+var bar = bind(foo, obj)
+var b = bar(3) // 2 3
+console.log(b) // 5
+```

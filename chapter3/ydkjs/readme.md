@@ -262,8 +262,3 @@ console.log(bar) // {banana: 'pudding'} . Notice that the property 'a' doesn't e
 console.log(bar.a) // undefined
 console.log(typeof bar) // object
 ```
-
-
-given this situation, i have 5 local commits on the main, then I branched for anotherbranch to also have these commits. Now I am pushing that new branch, while I want the local main commits to not be present in main in order for my local main and origin/main to have the same code. 
-
-What are the steps of achieving so?

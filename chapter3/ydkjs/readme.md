@@ -262,3 +262,14 @@ console.log(bar) // {banana: 'pudding'} . Notice that the property 'a' doesn't e
 console.log(bar.a) // undefined
 console.log(typeof bar) // object
 ```
+### What is currying?
+Given this code snippet: 
+```js
+function foo(a, b) {
+  console.log('a: ' + a + ',b: ' + b);
+}
+var bar = foo.bind(null, 2)
+bar(3) // a: 2, b: 3
+```
+What we have done above is called currying, instead of calling `bar(2,3)` we pass only one argument at a time, till our function is able to return a result to us.
+There is a [better example on stackoverflow](https://stackoverflow.com/a/36321/16385537) that explains the concept well.

@@ -262,8 +262,60 @@ console.log(bar) // {banana: 'pudding'} . Notice that the property 'a' doesn't e
 console.log(bar.a) // undefined
 console.log(typeof bar) // object
 ```
-
-
-given this situation, i have 5 local commits on the main, then I branched for anotherbranch to also have these commits. Now I am pushing that new branch, while I want the local main commits to not be present in main in order for my local main and origin/main to have the same code. 
-
-What are the steps of achieving so?
+### What is currying?
+Given this code snippet: 
+```js
+function foo(a, b) {
+  console.log('a: ' + a + ',b: ' + b);
+}
+var bar = foo.bind(null, 2)
+bar(3) // a: 2, b: 3
+```
+What we have done above is called currying, instead of calling `bar(2,3)` we pass only one argument at a time, till our function is able to return a result to us.
+There is a [better example on stackoverflow](https://stackoverflow.com/a/36321/16385537) that explains the concept well.
+____
+### Lexical this 
+It is identical to what we used to do with `var self = this`.  
+Here is an example: 
+```js
+function foo() {
+  return (a) => {
+    // `this` here is lexically inherited from `foo()`
+    console.log(this.a)
+  }
+}
+var obj1 = {a: 2}
+var obj2 = {a: 3}
+var bar = foo.call(obj1)
+bar.call(obj2) // 2 not 3 !
+// Why? 
+// Because `this` within the arrow function will be inherited from `foo()` whose `this` was bound to obj1
+```
+Another example using a callback: 
+```js
+function foo() {
+  setTimeout(() => {
+    console.log(this.a)
+  }, 0);
+}
+var obj = {
+  a: 2
+}
+foo.call(obj) // 2
+```
+If we compare the previous code with a normal function definition: 
+```js
+function foo() {
+  setTimeout(function() {
+    console.log(this.a)
+  }, 0);
+}
+var obj = {
+  a: 2
+}
+foo.call(obj) // undefined
+```
+Why did the above function log `undefined`?  
+Because after all the functions in the callstack are executed, `setTimeout` will be moved from the **Callback queue** to the **callstack** with the help of **event loop** (To be precise, `setTimeout` gets queued when the timer expires, but can only be moved to the callstack when the callstack is empty).  
+When `setTimeout` reaches the callstack, there will be no `foo`, so the callback in the `setTimeout` will be called within the global scope, trying to log `a` property on the `window` object (which is `this` bound to thanks to the default binding).  
+Definitely the `a` property doesn't exist on the `window` object, that's why we get `undefined`.
